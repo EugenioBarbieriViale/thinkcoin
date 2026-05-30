@@ -2,7 +2,6 @@ use sha2::{Digest, Sha256};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 use crate::hash::{hash_to_string, sha256};
-use crate::mine::get_nonce;
 
 #[derive(Debug)]
 pub struct BlockHeader {
@@ -14,17 +13,18 @@ pub struct BlockHeader {
 }
 
 impl BlockHeader {
-    pub fn build(&self, start: SystemTime, contents: &str, len: usize) -> Self {
-        let previous_hash;
-        if self.previous_hash.len() == 0 {
-            // This is the genesis block!
-            previous_hash = sha256(&0_u8.to_be_bytes());
-        } else {
-            previous_hash = self.sha256();
-        }
+    pub fn build(&self, contents: &str, len: usize) -> Self {
+        // let previous_hash;
+        // if self.previous_hash.len() == 0 {
+        //     // This is the genesis block!
+        //     previous_hash = sha256(&0_u8.to_be_bytes());
+        // } else {
+        //     previous_hash = self.sha256();
+        // }
 
+        let previous_hash = self.sha256();
         let contents_hash = sha256(contents.as_bytes());
-        let timestamp = get_time(start);
+        let timestamp = get_time();
 
         Self {
             content_len: len,
@@ -35,8 +35,8 @@ impl BlockHeader {
         }
     }
 
-    pub fn reset_time(&mut self, start: SystemTime) {
-        self.timestamp = get_time(start);
+    pub fn reset_time(&mut self) {
+        self.timestamp = get_time();
     }
 
     pub fn sha256(&self) -> [u8; 32] {
@@ -68,7 +68,8 @@ impl BlockHeader {
     }
 }
 
-fn get_time(start: SystemTime) -> usize {
+fn get_time() -> usize {
+    let start = SystemTime::now();
     start
         .duration_since(UNIX_EPOCH)
         .unwrap()
