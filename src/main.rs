@@ -1,5 +1,5 @@
 use crate::block_header::BlockHeader;
-use crate::hash::{hash_to_string, reverse_bo, sha256};
+use crate::hash::{Hash256, hash_to_string, reverse_bo};
 use crate::merkle::get_root_hash;
 use crate::mine::mine_block;
 
@@ -18,10 +18,10 @@ fn main() {
 
     let mut blockchain: Vec<BlockHeader> = vec![];
 
-    let mut genesis = BlockHeader {
+    let genesis = BlockHeader {
         content_len: 5,
-        previous_hash: sha256(&0_u8.to_be_bytes()),
-        contents_hash: sha256("hello".as_bytes()),
+        previous_hash: 0_u8.to_be_bytes().hash256(),
+        contents_hash: "hello".as_bytes().hash256(),
         timestamp: 0,
         nonce: 0,
     };

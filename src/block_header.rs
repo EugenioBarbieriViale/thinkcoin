@@ -1,9 +1,10 @@
-use sha2::{Digest, Sha256};
+use crate::hash::Hash256;
+use serde::Serialize;
 use std::time::{SystemTime, UNIX_EPOCH};
 
-use crate::hash::{hash_to_string, sha256};
+use crate::hash::hash_to_string;
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 pub struct BlockHeader {
     pub content_len: usize,
     pub previous_hash: [u8; 32],
@@ -14,16 +15,8 @@ pub struct BlockHeader {
 
 impl BlockHeader {
     pub fn build(&self, contents: &str, len: usize) -> Self {
-        // let previous_hash;
-        // if self.previous_hash.len() == 0 {
-        //     // This is the genesis block!
-        //     previous_hash = sha256(&0_u8.to_be_bytes());
-        // } else {
-        //     previous_hash = self.sha256();
-        // }
-
-        let previous_hash = self.sha256();
-        let contents_hash = sha256(contents.as_bytes());
+        let previous_hash = self.hash256();
+        let contents_hash = contents.as_bytes().hash256();
         let timestamp = get_time();
 
         Self {
@@ -37,16 +30,6 @@ impl BlockHeader {
 
     pub fn reset_time(&mut self) {
         self.timestamp = get_time();
-    }
-
-    pub fn sha256(&self) -> [u8; 32] {
-        let mut hasher = Sha256::new();
-        hasher.update(self.content_len.to_be_bytes());
-        hasher.update(self.previous_hash);
-        hasher.update(self.contents_hash);
-        hasher.update(self.timestamp.to_be_bytes());
-        hasher.update(self.nonce.to_be_bytes());
-        hasher.finalize().try_into().expect("Size is not 32 bytes.")
     }
 
     pub fn show(&self) {

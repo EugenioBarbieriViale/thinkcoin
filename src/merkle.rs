@@ -1,5 +1,4 @@
-use crate::hash::{concat, double_hash, hash_to_string, reverse_bo};
-use crate::transaction::Transaction;
+use crate::hash::{Hash256, concat, reverse_bo};
 
 type Hash = [u8; 32];
 
@@ -12,7 +11,7 @@ fn merkle_tree(ts: Vec<Hash>) -> Vec<Hash> {
                 1 => (h[0], h[0]),
                 _ => unreachable!(),
             };
-            double_hash(&concat(&h1, &h2))
+            concat(&h1, &h2).double_hash256()
         })
         .collect();
     match new.len() {

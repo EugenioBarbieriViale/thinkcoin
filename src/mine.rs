@@ -1,3 +1,4 @@
+use crate::hash::Hash256;
 use crate::{block_header::BlockHeader, hash::hash_to_string};
 
 pub fn mine_block(block: &mut BlockHeader, target: &[u8; 32], max_attempts: usize) {
@@ -7,7 +8,7 @@ pub fn mine_block(block: &mut BlockHeader, target: &[u8; 32], max_attempts: usiz
         for i in 0..max_attempts {
             c += 1;
 
-            let hash = block.sha256();
+            let hash = block.hash256();
             // println!("{}: {}", i, hash_to_string(&hash));
 
             if hash < *target {

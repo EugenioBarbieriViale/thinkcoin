@@ -14,3 +14,9 @@ Earn money by solving puzzles/chess problems!
 - Nodes accept the block only if all transactions in it are valid and not already spent.
 - Nodes express their acceptance of the block by working on creating the next block in the 
 - chain, using the hash of the accepted block as the previous hash.
+
+# Resources
+- [https://www.jmeiners.com/tiny-blockchain/](https://www.jmeiners.com/tiny-blockchain/)
+- [https://en.bitcoin.it/wiki/Protocol_documentation](https://en.bitcoin.it/wiki/Protocol_documentation)
+- [https://learnmeabitcoin.com/](https://learnmeabitcoin.com/)
+- [https://developer.bitcoin.org/devguide/block_chain.html](https://developer.bitcoin.org/devguide/block_chain.html)

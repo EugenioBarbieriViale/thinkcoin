@@ -1,14 +1,30 @@
+use postcard::to_allocvec;
+use serde::Serialize;
 use sha2::{Digest, Sha256};
 
-pub fn sha256(content: &[u8]) -> [u8; 32] {
-    let mut hasher = Sha256::new();
-    hasher.update(content);
-    hasher.finalize().try_into().expect("Size is not 32 bytes.")
+pub trait Hash256 {
+    fn hash256(&self) -> [u8; 32];
+    fn double_hash256(&self) -> [u8; 32];
 }
 
-pub fn double_hash(content: &[u8]) -> [u8; 32] {
-    sha256(sha256(content).as_slice())
+impl<T: ?Sized + Serialize> Hash256 for T {
+    fn hash256(&self) -> [u8; 32] {
+        let bytes: Vec<u8> = to_allocvec(self).expect("Serialization failed.");
+        Sha256::digest(&bytes).into()
+    }
+
+    fn double_hash256(&self) -> [u8; 32] {
+        Sha256::digest(self.hash256()).into()
+    }
 }
+
+// pub fn sha256(content: &[u8]) -> [u8; 32] {
+//     Sha256::digest(&content).into()
+// }
+//
+// pub fn double_hash(content: &[u8]) -> [u8; 32] {
+//     sha256(sha256(content).as_slice())
+// }
 
 pub fn hash_to_string(hash: &[u8; 32]) -> String {
     hash.iter()
