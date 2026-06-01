@@ -1,5 +1,5 @@
-use crate::hash::Hash256;
-use crate::{block_header::BlockHeader, hash::hash_to_string};
+use super::hash::Hash256;
+use super::{block_header::BlockHeader, hash::hash_to_string};
 
 pub fn mine_block(block: &mut BlockHeader, target: &[u8; 32], max_attempts: usize) {
     println!("Mining started...");

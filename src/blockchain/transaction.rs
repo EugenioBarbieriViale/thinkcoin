@@ -3,7 +3,7 @@
 use rand::thread_rng;
 use rsa::{RsaPrivateKey, RsaPublicKey};
 
-use crate::hash::Hash256;
+use super::hash::Hash256;
 
 fn generate_key() {
     let mut rng = thread_rng();

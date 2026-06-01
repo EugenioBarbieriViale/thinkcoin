@@ -1,8 +1,8 @@
-use crate::hash::Hash256;
 use serde::Serialize;
 use std::time::{SystemTime, UNIX_EPOCH};
 
-use crate::hash::hash_to_string;
+use super::hash::Hash256;
+use super::hash::hash_to_string;
 
 #[derive(Debug, Serialize)]
 pub struct BlockHeader {

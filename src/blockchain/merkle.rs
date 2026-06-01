@@ -1,4 +1,4 @@
-use crate::hash::{Hash256, concat, reverse_bo};
+use super::hash::{Hash256, concat, reverse_bo};
 
 type Hash = [u8; 32];
 
