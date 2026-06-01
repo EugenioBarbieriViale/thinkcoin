@@ -20,8 +20,8 @@ fn main() {
 
     let genesis = BlockHeader {
         content_len: 5,
-        previous_hash: 0_u8.to_be_bytes().hash256(),
-        contents_hash: "hello".as_bytes().hash256(),
+        previous_hash: 0_u8.hash256(),
+        contents_hash: "hello".hash256(),
         timestamp: 0,
         nonce: 0,
     };

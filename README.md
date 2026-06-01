@@ -1,6 +1,8 @@
 # thinkcoin 
 -----
-Earn money by solving puzzles/chess problems!
+- the positions of the pieces are hashed after every move and then see if they are less than the target
+- to prevent users from generating random positions and hashing them, they have first to be signed with a private key?
+- or maybe with a witness (another node?) that makes the connection happen?
 
 # TODO
 - implement bitcoin protocol
@@ -20,3 +22,7 @@ Earn money by solving puzzles/chess problems!
 - [https://en.bitcoin.it/wiki/Protocol_documentation](https://en.bitcoin.it/wiki/Protocol_documentation)
 - [https://learnmeabitcoin.com/](https://learnmeabitcoin.com/)
 - [https://developer.bitcoin.org/devguide/block_chain.html](https://developer.bitcoin.org/devguide/block_chain.html)
+- [https://lichess.org/@/HollowLeaf/blog/2-years-of-programming-chess-apps-my-lessons/PoajTjaa]
+
+# See
+- [https://github.com/0xZyrick/fog-of-chess](https://github.com/0xZyrick/fog-of-chess)
